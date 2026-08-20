@@ -3,8 +3,7 @@
  */
 
 package com.mycompany.hedgeyourbet;
-
- import javax.swing.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -16,14 +15,14 @@ public class HedgeYourBet extends JFrame implements ActionListener {
 
     // Questions
     private String[] questions = {
-        "how old was nelson mandela when he become the president?",
-        "How many years did he spend in prison?",
-        "Who old is South Africa today?",
-        "How old was Nelson Mandela when he got out of prison?",
-        "If he was alive today, how old would he be?"
+        "1. How old was Nelson Mandela when he became the president?",
+        "2. How many years did he spend in prison?",
+        "3. How old is South Africa today?",
+        "4. How old was Nelson Mandela when he got out of prison?",
+        "5. If he were alive today, how old would he be?"
     };
 
-    // Correct answers (must match one of the options below)
+    // Correct answers
     private String[] correctAnswers = {
         "75 years", 
         "27 years", 
@@ -39,12 +38,12 @@ public class HedgeYourBet extends JFrame implements ActionListener {
         questionLabel = new JLabel(questions[currentQuestion]);
         add(questionLabel);
 
-        // Options (same three for all questions)
-        option1 = new JCheckBox(" 75 years");
+        // Options
+        option1 = new JCheckBox("75 years");
         option2 = new JCheckBox("27 years");
-       option3 = new JCheckBox("116 years");
-       option4 = new JCheckBox("71 years");
-       option5 = new JCheckBox("108 years");
+        option3 = new JCheckBox("116 years");
+        option4 = new JCheckBox("71 years");
+        option5 = new JCheckBox("108 years");
         add(option1); add(option2); add(option3); add(option4); add(option5);
 
         submitButton = new JButton("Submit");
@@ -75,7 +74,7 @@ public class HedgeYourBet extends JFrame implements ActionListener {
         else if(correctSelected && selectedCount == 2) score += 2;
         else if(correctSelected && selectedCount == 3) score += 1;
 
-        // Next question
+        // Next questions
         currentQuestion++;
         if(currentQuestion < questions.length) {
             questionLabel.setText(questions[currentQuestion]);
@@ -85,8 +84,20 @@ public class HedgeYourBet extends JFrame implements ActionListener {
             option4.setSelected(false);
             option5.setSelected(false);
         } else {
-            String message = (score > 21) ? "Fantastic!" :
-                             (score > 15) ? "Very good" : "OK";
+            // conditions
+            String message;
+            if(score > 20) {
+                message = "Fantastic!";
+            } else if(score >= 16 && score <= 19) {
+                message = "Very good";
+            } else if(score >= 10 && score <= 15) {
+                message = "Good";
+            } else if(score == 0) {
+                message = "false. Please try again.";
+            } else {
+                message = "Okay";
+            }
+
             JOptionPane.showMessageDialog(this, "Final Score: " + score + "\n" + message);
         }
         scoreLabel.setText("Score: " + score);
@@ -96,3 +107,5 @@ public class HedgeYourBet extends JFrame implements ActionListener {
         new HedgeYourBet();
     }
 }
+
+ 
